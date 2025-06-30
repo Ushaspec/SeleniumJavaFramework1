@@ -6,10 +6,12 @@ import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/resources/Feature",
+        features = "@target/failed_scenarios.txt",
         glue = {"StepDefinition"},
-        tags = "@New10",
-        plugin = {"pretty", "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"},
+        plugin = {"pretty",
+                "json:target/cucumber-report.json",
+                "rerun:target/failed_scenarios.txt",
+                "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"},
         monochrome = true
 )
 public class testRun {
