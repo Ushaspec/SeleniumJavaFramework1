@@ -12,7 +12,10 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class stepdefinition {
     WebDriver driver;
@@ -286,8 +289,82 @@ public class stepdefinition {
         Actions action = new Actions(driver);
         action.moveToElement(hoverTarget).perform();
         Thread.sleep(2000);
+    }
+    @When("Count number of rows and columns")
+    public void count_number_of_rows_and_columns() throws InterruptedException {
+        WebElement tables = driver.findElement(By.xpath("//a[text()='Tables']"));
+        tables.click();
+        Thread.sleep(3000);
+        WebElement table = driver.findElement(By.xpath("//figure[@class='wp-block-table']//table"));
+        List<WebElement> rows = table.findElements(By.xpath(".//tbody/tr"));
+        List<WebElement> columns = table.findElements(By.xpath(".//tbody/tr[1]/td"));
+        System.out.println("Number of rows: " + rows.size());
+        System.out.println("Number of columns: " + columns.size());
+        Thread.sleep(3000);
+    }
+    @When ("Extract all data from the table")
+    public void extract_all_data_from_the_table() throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement table = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//figure[@class='wp-block-table']//table")));
 
+        // Find all rows
+        List<WebElement> rows = table.findElements(By.tagName("tr"));
+
+        for (WebElement row : rows) {
+            // Find all cells (both th and td for header and data)
+            List<WebElement> cells = row.findElements(By.xpath("./th | ./td"));
+            for (WebElement cell : cells) {
+                System.out.print(cell.getText() + " | ");
+            }
+            System.out.println(); // New line after each row
+        }
+    }
+    @When("user searches for {string} in the table")
+    public void user_searches_for_keyword_in_table(String keyword) {
+        WebElement table = driver.findElement(By.xpath("//figure[@class='wp-block-table']//table"));
+        List<WebElement> rows = table.findElements(By.tagName("tr"));
+        boolean found = false;
+
+        for (WebElement row : rows) {
+            List<WebElement> cells = row.findElements(By.xpath("./th | ./td"));
+            for (WebElement cell : cells) {
+                if (cell.getText().toLowerCase().contains(keyword.toLowerCase())) {
+                    found = true;
+                    System.out.println("✅ Found '" + keyword + "' in table cell: " + cell.getText());
+                }
+            }
+        }
+
+        if (!found) {
+            throw new AssertionError("❌ Keyword '" + keyword + "' not found in any table cell.");
+        }
     }
 
+    @And("Verify the table headers")
+    public void verify_the_table_headers() {
+        // Locate the table
+        WebElement table = driver.findElement(By.xpath("//figure[@class='wp-block-table']//table"));
 
-}
+        // Locate header row (assumes headers are in the first row of the table)
+        List<WebElement> headers = table.findElements(By.xpath(".//thead/tr/th"));
+
+        // Expected headers - update this list as per your table
+        List<String> expectedHeaders = Arrays.asList("Product", "Price", "Quantity");
+
+        // Actual headers from the web table
+        List<String> actualHeaders = headers.stream()
+                .map(WebElement::getText)
+                .collect(Collectors.toList());
+
+        // Compare expected vs actual
+        if (actualHeaders.equals(expectedHeaders)) {
+            System.out.println("✅ Table headers are correct: " + actualHeaders);
+        } else {
+            System.out.println("❌ Table headers mismatch!");
+            System.out.println("Expected: " + expectedHeaders);
+            System.out.println("Actual: " + actualHeaders);
+        }
+    }
+
+    }

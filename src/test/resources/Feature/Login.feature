@@ -36,32 +36,45 @@ Feature: Login Testpage
       And user enter prompt popup
 
       @New6
-      Scenario:
+      Scenario: User play sliders
         Given User launches the new testing browser scroll
         When User enter sliders button
 
       @New7
-      Scenario:
+      Scenario: User try calendar
         Given User launches the new testing browser scroll
         When User enter last year date
 
       @New8
-      Scenario:
+      Scenario:Modal buttons
         Given User launches the new testing browser scroll
         When User enter Modals button
         When user enter form modal
 
       @New9
-      Scenario:
+      Scenario: Window Operations
         Given User launches the new testing browser scroll
         When User enter window operations
         And User navigate to replace window
         And user enter new window
 
         @New10
-        Scenario:
+        Scenario: Hover
           Given User launches the new testing browser scroll
           When User enter Hover button
+
+        @New11
+        Scenario: Tables
+          Given User launches the new testing browser scroll
+          When Count number of rows and columns
+          And Extract all data from the table
+          And user searches for "Marbles" in the table
+          And Verify the table headers
+
+
+
+
+
 
 
 
