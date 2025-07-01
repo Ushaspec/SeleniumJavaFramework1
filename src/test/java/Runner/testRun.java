@@ -8,7 +8,7 @@ import io.cucumber.junit.CucumberOptions;
 @CucumberOptions(
         features = "src/test/resources/Feature",
         glue = {"StepDefinition"},
-        tags = "@New11",
+
         plugin = {"pretty",
                 "json:target/cucumber-report.json",
                 "rerun:target/failed_scenarios.txt",
