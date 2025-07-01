@@ -8,11 +8,8 @@ import io.cucumber.junit.CucumberOptions;
 @CucumberOptions(
         features = "src/test/resources/Feature",
         glue = {"StepDefinition"},
-
-        plugin = {"pretty",
-                "json:target/cucumber-report.json",
-                "rerun:target/failed_scenarios.txt",
-                "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"},
+        tags = "@New10",
+        plugin = {"pretty", "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"},
         monochrome = true
 )
 public class testRun {
