@@ -71,6 +71,66 @@ Feature: Login Testpage
           And user searches for "Marbles" in the table
           And Verify the table headers
 
+        @New12
+        Scenario: Accordions
+          Given User launches the new testing browser scroll end
+          When user enter Accordions
+          And user click on accordions
+          Then able to see "This is an accordion item."
+
+        @New13
+        Scenario: Brokenlink
+          Given User launches the new testing browser scroll BI
+          When User click on broken link
+          Then User checks all links for broken ones
+
+        @New14
+        Scenario: Broken images
+          Given User launches the new testing browser scroll BI
+          When User click on broken image
+          Then User verifies all images for broken ones
+
+        @New15
+        Scenario: Ads
+          Given User launches the new testing browser scroll Ads
+          When User click on ads
+          Then Ads page should be displayed
+
+        @New16
+        Scenario: Gesture
+          Given User launches the new testing browser scroll Ads
+          When User click on Gesture
+          When user perform drag and drop
+          When place in target place
+          When drag the map anywhere
+
+        @New17
+        Scenario: Download file
+          Given User launches the new testing browser scroll Ads
+          When User click on File download option
+          When click on sandbox download
+
+        @New18
+        Scenario: Upload file
+          Given User launches the new testing browser scroll Ads
+          When User click on upload file option
+
+        @New19
+        Scenario: Spinner
+          Given User launches the new testing browser scroll Ads
+          When User triggers the loading spinner
+          Then Spinner should be displayed
+          And Spinner should disappear after loading completes
+
+
+
+
+
+
+
+
+
+
 
 
 
