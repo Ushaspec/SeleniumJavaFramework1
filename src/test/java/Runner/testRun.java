@@ -6,7 +6,7 @@ import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "@target/failed_scenarios.txt",
+        features = "src/test/resources/Feature/Login.feature",
         glue = {"StepDefinition"},
         plugin = {"pretty",
                 "html:target/cucumber-report.html",
